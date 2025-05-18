@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pengumuman Kelulusan - UPT SD Negeri Tugurejo 02</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #eef3f8;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 400px;
+      margin: 60px auto;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      padding: 2rem;
+      text-align: center;
+    }
+    .logo {
+      width: 60px;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 1.2rem;
+      margin-bottom: 0.2rem;
+    }
+    .tahun {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 1.2rem;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 0.7rem;
+      margin-bottom: 1rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+    button {
+      padding: 0.7rem 1.5rem;
+      border: none;
+      background-color: #007f5f;
+      color: white;
+      font-size: 1rem;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 1.5rem;
+      text-align: left;
+      padding: 1rem;
+      border-radius: 6px;
+    }
+    .success {
+      background-color: #d4edda;
+      color: #155724;
+    }
+    .error {
+      background-color: #f8d7da;
+      color: #721c24;
+    }
+    .btn-print {
+      margin-top: 1rem;
+      background-color: #1d3557;
+    }
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #666;
+    }
+    footer a {
+      color: #007f5f;
+      text-decoration: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/9/9c/Logo_of_Ministry_of_Education_and_Culture_of_Republic_of_Indonesia.svg" alt="Logo" />
+    <h1>Pengumuman Kelulusan</h1>
+    <div class="tahun">UPT SD Negeri Tugurejo 02<br>Tahun Ajaran 2024/2025</div>
+
+    <input type="text" id="nisn" placeholder="Masukkan NISN Anda" />
+    <button onclick="cekKelulusan()">Cek</button>
+
+    <div id="hasil" class="result"></div>
+  </div>
+
+  <footer>
+    &copy; 2025 <a href="https://ban-pdm.id/satuanpendidikan/20514559" target="_blank">UPT SD Negeri Tugurejo 02</a>. All rights reserved.
+  </footer>
+
+  <script>
+    async function cekKelulusan() {
+      const nisn = document.getElementById("nisn").value.trim();
+      const hasil = document.getElementById("hasil");
+      hasil.innerHTML = "Memproses...";
+      hasil.className = "result";
+
+      const url = `https://script.google.com/macros/s/AKfycbzGRto8jDYD_uaJ088Tu0KLfD7U5-c1QQB09JzVoTi8hB3CQVboiXQSGmh1iv3MnIOJ/exec?nisn=${nisn}`;
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        if (data && data.found) {
+          hasil.classList.add("success");
+          hasil.innerHTML = `
+            <strong>Nama:</strong> ${data.nama}<br>
+            <strong>Kelas:</strong> ${data.kelas}<br>
+            <strong>Tanggal Lahir:</strong> ${data.tanggal_lahir}<br>
+            <strong>Status Kelulusan:</strong> ${data.status}<br>
+            <button class="btn-print" onclick="window.print()">Cetak Surat Kelulusan</button>
+          `;
+        } else {
+          hasil.classList.add("error");
+          hasil.innerHTML = "NISN tidak ditemukan. Silakan periksa kembali.";
+        }
+      } catch (error) {
+        hasil.classList.add("error");
+        hasil.innerHTML = "Terjadi kesalahan saat memproses data.";
+        console.error(error);
+      }
+    }
+  </script>
+</body>
+</html>
