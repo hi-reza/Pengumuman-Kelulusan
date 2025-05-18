@@ -7,6 +7,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       font-family: 'Inter', sans-serif;
       background: #f0f4f8;
@@ -15,6 +19,7 @@
     }
 
     .container {
+      width: 90%;
       max-width: 400px;
       margin: 50px auto;
       background: #fff;
@@ -50,10 +55,10 @@
       border-radius: 8px;
       border: 1px solid #ccc;
       font-size: 1rem;
-      box-sizing: border-box;
     }
 
     button {
+      width: 100%;
       padding: 0.7rem 1.5rem;
       border: none;
       background-color: #27ae60;
@@ -93,7 +98,6 @@
       border-radius: 8px;
       padding: 0.75rem;
       text-decoration: none;
-      box-sizing: border-box;
     }
 
     .btn-status {
@@ -153,6 +157,22 @@
       color: #27ae60;
       text-decoration: none;
     }
+
+    @media (max-width: 480px) {
+      .container {
+        margin: 30px auto;
+        padding: 1.5rem;
+      }
+
+      h1 {
+        font-size: 1.1rem;
+      }
+
+      .btn-status, .btn-download, button {
+        font-size: 0.95rem;
+        padding: 0.6rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -179,6 +199,12 @@
       const nisn = document.getElementById("nisn").value.trim();
       const hasil = document.getElementById("hasil");
       const btnKembali = document.getElementById("btn-kembali");
+
+      if (!nisn) {
+        hasil.className = "result error";
+        hasil.innerHTML = "Masukkan Nomor Induk Siswa Nasional (NISN)";
+        return;
+      }
 
       hasil.innerHTML = "<em>Memproses...</em>";
       hasil.className = "result";
