@@ -44,7 +44,7 @@
       border-radius: 8px;
       border: 1px solid #ccc;
       font-size: 1rem;
-      box-sizing: border-box; /* Tambahan untuk mencegah overflow */
+      box-sizing: border-box;
     }
     button {
       padding: 0.7rem 1.5rem;
@@ -58,7 +58,7 @@
     }
     .result {
       margin-top: 1.5rem;
-      text-align: left;
+      text-align: center;
       padding: 1.2rem;
       border-radius: 10px;
       border: 1px solid transparent;
@@ -99,6 +99,20 @@
       color: #27ae60;
       text-decoration: none;
     }
+    .label {
+      font-weight: 600;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      text-align: center;
+      color: #2c3e50;
+    }
+    .value {
+      margin-top: 0.3rem;
+      margin-bottom: 0.8rem;
+      text-align: center;
+      font-size: 1rem;
+      color: #34495e;
+    }
   </style>
 </head>
 <body>
@@ -134,9 +148,15 @@
           hasil.classList.add("success");
           hasil.innerHTML = `
             <h3><i class="fa-solid fa-circle-check" style="color: #27ae60;"></i> Data Siswa</h3>
-            <p><strong>Nama:</strong> ${data.nama}</p>
-            <p><strong>Tempat, Tanggal Lahir:</strong> Palu, 18 September 2011</p>
-            <p><strong>Kelas:</strong> VI (Enam)</p>
+            <div class="label">Nama</div>
+            <div class="value">${data.nama}</div>
+
+            <div class="label">Tempat, Tanggal Lahir</div>
+            <div class="value">Palu, 18 September 2011</div>
+
+            <div class="label">Kelas</div>
+            <div class="value">VI (Enam)</div>
+
             <a href="#" class="btn-status"><i class="fa fa-graduation-cap"></i> ${data.status}</a>
           `;
         } else {
