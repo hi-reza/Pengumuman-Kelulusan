@@ -72,14 +72,7 @@
       border-color: #e74c3c;
       color: #c0392b;
     }
-    .btn-print {
-      margin-top: 1rem;
-      display: block;
-      width: 100%;
-      text-align: center;
-      background-color: #2c3e50;
-    }
-    .btn-download {
+    .btn-status {
       margin-top: 1rem;
       display: block;
       width: 100%;
@@ -90,8 +83,9 @@
       border-radius: 8px;
       padding: 0.75rem;
       text-decoration: none;
+      box-sizing: border-box;
     }
-    .btn-download i {
+    .btn-status i {
       margin-right: 8px;
     }
     footer {
@@ -140,10 +134,9 @@
           hasil.innerHTML = `
             <h3><i class="fa-solid fa-circle-check" style="color: #27ae60;"></i> Data Siswa</h3>
             <p><strong>Nama:</strong> ${data.nama}</p>
-            <p><strong>Kelas:</strong> ${data.tanggal_lahir}</p>
-            <p><strong>Tanggal Lahir:</strong> ${data.kelas}</p>
-            <p><strong>Status Kelulusan:</strong> ${data.status}</p>
-            <a href="${data.link}" class="btn-download"><i class="fa fa-download"></i>Download Surat Kelulusan</a>
+            <p><strong>Tempat, Tanggal Lahir:</strong> Palu, 18 September 2011</p>
+            <p><strong>Kelas:</strong> VI (Enam)</p>
+            <a href="#" class="btn-status"><i class="fa fa-graduation-cap"></i> ${data.status}</a>
           `;
         } else {
           hasil.classList.add("error");
