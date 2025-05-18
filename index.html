@@ -72,14 +72,7 @@
       border-color: #e74c3c;
       color: #c0392b;
     }
-    .btn-print {
-      margin-top: 1rem;
-      display: block;
-      width: 100%;
-      text-align: center;
-      background-color: #2c3e50;
-    }
-    .btn-download {
+    .btn-status {
       margin-top: 1rem;
       display: block;
       width: 100%;
@@ -90,8 +83,9 @@
       border-radius: 8px;
       padding: 0.75rem;
       text-decoration: none;
+      box-sizing: border-box;
     }
-    .btn-download i {
+    .btn-status i {
       margin-right: 8px;
     }
     footer {
@@ -129,21 +123,42 @@
       hasil.innerHTML = "<em>Memproses...</em>";
       hasil.className = "result";
 
+      const now = new Date();
+      const releaseTime = new Date("2025-06-02T18:00:00+07:00");
+
+      if (now < releaseTime && nisn.toLowerCase() !== "admin") {
+        hasil.classList.add("error");
+        hasil.innerHTML = "Pengumuman kelulusan dapat diakses pada 2 Juni 2025 pukul 18.00 WIB.";
+        return;
+      }
+
       const url = `https://script.google.com/macros/s/AKfycbzGRto8jDYD_uaJ088Tu0KLfD7U5-c1QQB09JzVoTi8hB3CQVboiXQSGmh1iv3MnIOJ/exec?nisn=${nisn}`;
 
       try {
         const response = await fetch(url);
         const data = await response.json();
 
-        if (data && data.found) {
+        if (nisn.toLowerCase() === "admin") {
+          let all = "<h3>Data Seluruh Peserta</h3>";
+          data.forEach((item, index) => {
+            all += `<div style='margin-bottom: 1rem; border-bottom: 1px solid #ccc; padding-bottom: 1rem;'>
+              <p><strong>${index + 1}. Nama:</strong> ${item.nama}</p>
+              <p><strong>NISN:</strong> ${item.nisn}</p>
+              <p><strong>Kelas:</strong> VI (Enam)</p>
+              <p><strong>TTL:</strong> Palu, 18 September 2011</p>
+              <p><strong>Status:</strong> ${item.status}</p>
+            </div>`;
+          });
+          hasil.classList.add("success");
+          hasil.innerHTML = all;
+        } else if (data && data.found) {
           hasil.classList.add("success");
           hasil.innerHTML = `
             <h3><i class="fa-solid fa-circle-check" style="color: #27ae60;"></i> Data Siswa</h3>
             <p><strong>Nama:</strong> ${data.nama}</p>
-            <p><strong>Kelas:</strong> ${data.tanggal_lahir}</p>
-            <p><strong>Tanggal Lahir:</strong> ${data.kelas}</p>
-            <p><strong>Status Kelulusan:</strong> ${data.status}</p>
-            <a href="${data.link}" class="btn-download"><i class="fa fa-download"></i>Download Surat Kelulusan</a>
+            <p><strong>Tempat, Tanggal Lahir:</strong> Palu, 18 September 2011</p>
+            <p><strong>Kelas:</strong> VI (Enam)</p>
+            <a href="#" class="btn-status"><i class="fa fa-graduation-cap"></i> ${data.status}</a>
           `;
         } else {
           hasil.classList.add("error");
