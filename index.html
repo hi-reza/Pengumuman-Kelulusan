@@ -4,78 +4,104 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pengumuman Kelulusan - UPT SD Negeri Tugurejo 02</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #eef3f8;
+      font-family: 'Inter', sans-serif;
+      background: #f0f4f8;
       margin: 0;
       padding: 0;
     }
     .container {
       max-width: 400px;
-      margin: 60px auto;
-      background: white;
-      border-radius: 10px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      margin: 50px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
       padding: 2rem;
       text-align: center;
     }
     .logo {
-      width: 60px;
+      width: 70px;
       margin-bottom: 1rem;
     }
     h1 {
-      font-size: 1.2rem;
-      margin-bottom: 0.2rem;
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.3rem;
+      color: #2c3e50;
     }
     .tahun {
-      font-size: 0.9rem;
-      color: #666;
-      margin-bottom: 1.2rem;
+      font-size: 0.95rem;
+      color: #7f8c8d;
+      margin-bottom: 1.5rem;
     }
     input[type="text"] {
       width: 100%;
-      padding: 0.7rem;
+      padding: 0.75rem;
       margin-bottom: 1rem;
-      border-radius: 6px;
+      border-radius: 8px;
       border: 1px solid #ccc;
       font-size: 1rem;
     }
     button {
       padding: 0.7rem 1.5rem;
       border: none;
-      background-color: #007f5f;
+      background-color: #27ae60;
       color: white;
       font-size: 1rem;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
+      font-weight: 600;
     }
     .result {
       margin-top: 1.5rem;
       text-align: left;
-      padding: 1rem;
-      border-radius: 6px;
+      padding: 1.2rem;
+      border-radius: 10px;
+      border: 1px solid transparent;
     }
     .success {
-      background-color: #d4edda;
-      color: #155724;
+      background-color: #e9fbee;
+      border-color: #2ecc71;
+      color: #2c3e50;
     }
     .error {
-      background-color: #f8d7da;
-      color: #721c24;
+      background-color: #fdecea;
+      border-color: #e74c3c;
+      color: #c0392b;
     }
     .btn-print {
       margin-top: 1rem;
-      background-color: #1d3557;
+      display: block;
+      width: 100%;
+      text-align: center;
+      background-color: #2c3e50;
+    }
+    .btn-download {
+      margin-top: 1rem;
+      display: block;
+      width: 100%;
+      background-color: #2ecc71;
+      color: white;
+      text-align: center;
+      font-weight: bold;
+      border-radius: 8px;
+      padding: 0.75rem;
+      text-decoration: none;
+    }
+    .btn-download i {
+      margin-right: 8px;
     }
     footer {
       margin-top: 3rem;
       text-align: center;
       font-size: 0.85rem;
-      color: #666;
+      color: #999;
     }
     footer a {
-      color: #007f5f;
+      color: #27ae60;
       text-decoration: none;
     }
   </style>
@@ -100,7 +126,7 @@
     async function cekKelulusan() {
       const nisn = document.getElementById("nisn").value.trim();
       const hasil = document.getElementById("hasil");
-      hasil.innerHTML = "Memproses...";
+      hasil.innerHTML = "<em>Memproses...</em>";
       hasil.className = "result";
 
       const url = `https://script.google.com/macros/s/AKfycbzGRto8jDYD_uaJ088Tu0KLfD7U5-c1QQB09JzVoTi8hB3CQVboiXQSGmh1iv3MnIOJ/exec?nisn=${nisn}`;
@@ -112,11 +138,12 @@
         if (data && data.found) {
           hasil.classList.add("success");
           hasil.innerHTML = `
-            <strong>Nama:</strong> ${data.nama}<br>
-            <strong>Kelas:</strong> ${data.kelas}<br>
-            <strong>Tanggal Lahir:</strong> ${data.tanggal_lahir}<br>
-            <strong>Status Kelulusan:</strong> ${data.status}<br>
-            <button class="btn-print" onclick="window.print()">Cetak Surat Kelulusan</button>
+            <h3><i class="fa-solid fa-circle-check" style="color: #27ae60;"></i> Data Siswa</h3>
+            <p><strong>Nama:</strong> ${data.nama}</p>
+            <p><strong>Kelas:</strong> ${data.kelas}</p>
+            <p><strong>Tanggal Lahir:</strong> ${data.tanggal_lahir}</p>
+            <p><strong>Status Kelulusan:</strong> ${data.status}</p>
+            <a href="${data.link}" class="btn-download"><i class="fa fa-download"></i>Download Surat Kelulusan</a>
           `;
         } else {
           hasil.classList.add("error");
