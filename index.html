@@ -138,7 +138,7 @@
       hasil.innerHTML = "<em>Memproses...</em>";
       hasil.className = "result";
 
-      const url = `https://script.google.com/macros/s/AKfycbzGRto8jDYD_uaJ088Tu0KLfD7U5-c1QQB09JzVoTi8hB3CQVboiXQSGmh1iv3MnIOJ/exec?nisn=${nisn}`;
+      const url = `https://script.google.com/macros/s/AKfycby3bkZ3TS8yj6lIONiUY4-ro5Zhdu5QMPZAUxDteGaJOyamAiuXRFOdjblSglDi55S_/exec?nisn=${nisn}`;
 
       try {
         const response = await fetch(url);
@@ -152,7 +152,7 @@
             <div class="value">${data.nama}</div>
 
             <div class="label">Tempat, Tanggal Lahir</div>
-            <div class="value">${data.ttl}</div>
+            <div class="value">${data.tanggal_lahir}</div>
 
             <div class="label">Kelas</div>
             <div class="value">${data.kelas}</div>
