@@ -152,12 +152,17 @@
             <div class="value">${data.nama}</div>
 
             <div class="label">Tempat, Tanggal Lahir</div>
-            <div class="value">${data.kelas}</div>
+            <div class="value">${data.ttl}</div>
 
             <div class="label">Kelas</div>
-            <div class="value">VI (enam)</div>
+            <div class="value">${data.kelas}</div>
 
             <a href="#" class="btn-status"><i class="fa fa-graduation-cap"></i> ${data.status}</a>
+
+            ${data.status.toLowerCase() === 'lulus' && data.skl
+              ? `<a href="${data.skl}" class="btn-status" target="_blank" style="margin-top: 10px; background-color: #3498db;"><i class="fa fa-download"></i> Unduh SKL</a>`
+              : ''
+            }
           `;
         } else {
           hasil.classList.add("error");
