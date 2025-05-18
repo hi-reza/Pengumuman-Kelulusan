@@ -7,6 +7,9 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    * {
+      box-sizing: border-box;
+    }
     body {
       font-family: 'Inter', sans-serif;
       background: #f0f4f8;
@@ -14,20 +17,21 @@
       padding: 0;
     }
     .container {
+      width: 90%;
       max-width: 400px;
-      margin: 50px auto;
+      margin: 40px auto;
       background: #fff;
       border-radius: 12px;
       box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
-      padding: 2rem;
+      padding: 2rem 1.5rem;
       text-align: center;
     }
     .logo {
-      width: 70px;
+      width: 60px;
       margin-bottom: 1rem;
     }
     h1 {
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 700;
       margin-bottom: 0.3rem;
       color: #2c3e50;
@@ -39,12 +43,11 @@
     }
     input[type="text"] {
       width: 100%;
-      padding: 0.75rem;
+      padding: 0.7rem;
       margin-bottom: 1rem;
       border-radius: 8px;
       border: 1px solid #ccc;
       font-size: 1rem;
-      box-sizing: border-box;
     }
     button {
       padding: 0.7rem 1.5rem;
@@ -55,6 +58,7 @@
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
+      width: 100%;
     }
     .result {
       margin-top: 1.5rem;
@@ -62,6 +66,7 @@
       padding: 1.2rem;
       border-radius: 10px;
       border: 1px solid transparent;
+      font-size: 0.95rem;
     }
     .success {
       background-color: #e9fbee;
@@ -84,34 +89,61 @@
       border-radius: 8px;
       padding: 0.75rem;
       text-decoration: none;
-      box-sizing: border-box;
     }
     .btn-status i {
       margin-right: 8px;
+    }
+    .btn-download {
+      background-color: #3498db;
+      margin-top: 10px;
+      display: block;
+      width: 100%;
+      color: white;
+      font-weight: bold;
+      border-radius: 8px;
+      padding: 0.75rem;
+      text-decoration: none;
+    }
+    .btn-download i {
+      margin-right: 8px;
+    }
+    .label {
+      font-weight: 600;
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: #2c3e50;
+    }
+    .value {
+      margin-top: 0.3rem;
+      margin-bottom: 0.8rem;
+      font-size: 1rem;
+      color: #34495e;
     }
     footer {
       margin-top: 3rem;
       text-align: center;
       font-size: 0.85rem;
       color: #999;
+      padding: 1rem;
     }
     footer a {
       color: #27ae60;
       text-decoration: none;
     }
-    .label {
-      font-weight: 600;
-      margin-top: 1rem;
-      font-size: 0.95rem;
-      text-align: center;
-      color: #2c3e50;
-    }
-    .value {
-      margin-top: 0.3rem;
-      margin-bottom: 0.8rem;
-      text-align: center;
-      font-size: 1rem;
-      color: #34495e;
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 1.2rem;
+      }
+      .tahun {
+        font-size: 0.85rem;
+      }
+      input, button {
+        font-size: 0.95rem;
+      }
+      .result {
+        font-size: 0.9rem;
+      }
     }
   </style>
 </head>
@@ -138,7 +170,7 @@
       hasil.innerHTML = "<em>Memproses...</em>";
       hasil.className = "result";
 
-      const url = `https://script.google.com/macros/s/AKfycbzq3bxJBdEx1SOKIpOZrRKoexxo0iIp102dcwudcbwMmU09UlGiNASvMLHzXOrAo8Yp/exec?nisn=${nisn}`;
+      const url = `https://script.google.com/macros/s/AKfycbzq3bxJBdEx1SOKIpOZrRKoexxo0iIp102dcwudcbwMmU09UlGiNASvMLHzXOrAo8Yp/exec?nisn=${encodeURIComponent(nisn)}`;
 
       try {
         const response = await fetch(url);
@@ -159,8 +191,8 @@
 
             <a href="#" class="btn-status"><i class="fa fa-graduation-cap"></i> ${data.status}</a>
 
-            ${data.status.toLowerCase() === 'lulus' && data.skl
-              ? `<a href="${data.skl}" class="btn-status" target="_blank" style="margin-top: 10px; background-color: #3498db;"><i class="fa fa-download"></i> Unduh SKL</a>`
+            ${data.status && data.status.toLowerCase() === 'lulus' && data.skl
+              ? `<a href="${data.skl}" class="btn-download" target="_blank"><i class="fa fa-download"></i> Unduh SKL</a>`
               : ''
             }
           `;
