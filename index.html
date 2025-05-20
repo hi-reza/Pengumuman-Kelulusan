@@ -211,7 +211,8 @@
       hasil.className = "result";
       btnKembali.style.display = "block";
 
-      const url = `https://script.google.com/macros/s/AKfycbzq3bxJBdEx1SOKIpOZrRKoexxo0iIp102dcwudcbwMmU09UlGiNASvMLHzXOrAo8Yp/exec?nisn=${encodeURIComponent(nisn)}`;
+      const referer = location.origin;
+      const url = `https://script.google.com/macros/s/AKfycbw3FeKo_qZjNzK7rRpfwRHcIYlCPeSFWUljrQW8UDi0Fq6OaFXDddyplTRWIDoQiac/exec?nisn=${encodeURIComponent(nisn)}`;
 
       try {
         const response = await fetch(url);
