@@ -14,7 +14,7 @@
     body {
       font-family: 'Inter', sans-serif;
       background: url('https://images.pexels.com/photos/3401403/pexels-photo-3401403.jpeg') no-repeat center center fixed;
-      background-size: cover;;
+      background-size: cover;
       margin: 0;
       padding: 0;
     }
@@ -185,7 +185,7 @@
     <h1>Pengumuman Kelulusan</h1>
     <div class="tahun">UPT SD Negeri Tugurejo 02<br>Tahun Ajaran 2024/2025</div>
 
-    <input type="text" id="nisn" placeholder="Masukkan NISN Anda" />
+    <input type="text" id="nisn" placeholder="Masukkan 10 digit NISN Anda" inputmode="numeric" maxlength="10" />
     <button onclick="cekKelulusan()">Cek</button>
 
     <div id="hasil" class="result"></div>
@@ -201,9 +201,10 @@
       const hasil = document.getElementById("hasil");
       const btnKembali = document.getElementById("btn-kembali");
 
-      if (!nisn) {
+      // Validasi: hanya angka, panjang 10 digit
+      if (!/^\d{10}$/.test(nisn)) {
         hasil.className = "result error";
-        hasil.innerHTML = "Masukkan Nomor Induk Siswa Nasional (NISN)";
+        hasil.innerHTML = "NISN harus terdiri dari 10 digit angka.";
         return;
       }
 
