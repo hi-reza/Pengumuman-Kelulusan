@@ -23,9 +23,11 @@
       width: 90%;
       max-width: 400px;
       margin: 50px auto;
-      background: #fff;
+      background: rgba(255, 255, 255, 0.6);
       border-radius: 12px;
-      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       padding: 2rem;
       text-align: center;
       position: relative;
@@ -41,12 +43,14 @@
       font-weight: 700;
       margin-bottom: 0.3rem;
       color: #2c3e50;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
     }
 
     .tahun {
       font-size: 0.95rem;
-      color: #7f8c8d;
+      color: #34495e;
       margin-bottom: 1.5rem;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.9);
     }
 
     input[type="text"] {
@@ -201,7 +205,6 @@
       const hasil = document.getElementById("hasil");
       const btnKembali = document.getElementById("btn-kembali");
 
-      // Validasi: hanya angka, panjang 10 digit
       if (!/^\d{10}$/.test(nisn)) {
         hasil.className = "result error";
         hasil.innerHTML = "NISN harus terdiri dari 10 digit angka.";
